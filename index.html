@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>D&D Character Sheet</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" type="text/javascript"></script>
+    <link type="text/css" rel="stylesheet" media="screen" href="style.css" />
+    <script type="text/javascript">
+        $(function(){
+            var  horizontalCenter = Math.floor(window.innerWidth/2),
+                 verticalCenter = Math.floor(window.innerHeight/2),
+                 Minimize = (function(what){
+                    var $_full_screen_el = $(what),
+                        $_original_el = $_full_screen_el.data('original_el');
+
+                     //shrink down to original size and to center of screen
+                     $_full_screen_el.animate({ "height":$_original_el.innerHeight(), "width":$_original_el.innerWidth(), "top":(verticalCenter-($_original_el.innerHeight()/2))+'px', "left":(horizontalCenter-($_original_el.innerWidth()/2))+'px' }).removeClass('fullscreen')
+
+                     //move it back into it's original position
+                     $_full_screen_el.animate({"position":'absolute',"left":$_original_el.offset().left+'px',"top":$_original_el.offset().top+'px'}, function(){
+
+                         //make the original element visible
+                         $_original_el.css({"visibility":'visible'})
+
+                         //remove the full screen element
+                         $_full_screen_el.remove()
+
+                     })
+                 }),
+                 Maximize = (function(what){
+                    var $_el = $(what), //cache the element
+                        $_cloned_el = $_el.clone(); //clone the element
+
+                    //leave the actual element where it is, but visibility hidden
+                    $_el.css({"visibility":'hidden'})
+
+                    //find the elements current position, make it absolute
+                     $_cloned_el.data('original_el', $_el).bind('click',function(){ Minimize(this)}).css({"position":'absolute',"left":$_el.offset().left+'px',"top":$_el.offset().top+'px', "margin":0});
+
+                     //append the cloned element to the page
+                     $('body').append($_cloned_el)
+
+                    //let's move the card to the absolute center of the screen
+                     $_cloned_el.animate({"top":(verticalCenter-($_el.innerHeight()/2))+'px', "left":(horizontalCenter-($_el.innerWidth()/2))+'px'},function(){ $(this).addClass('fullscreen') })
+
+                     $_cloned_el.animate({ "height":'100%', "width":'100%', "top": 0, "left": 0 })
+                })
+            $('.card').bind('click',function(){ Maximize(this) })
+        })
+    </script>
+</head>
+<body>
+
+<div id="wrapper">
+    <div class="card">
+        <h1>Ability 1</h1>
+    </div>
+    <div class="card">
+        <h1>Ability 2</h1>
+    </div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+    <div class="card"></div>
+</div>
+
+</body>
+</html>
