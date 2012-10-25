@@ -1,20 +1,34 @@
 html{height:100%;width:100%;overflow:hidden}
 body{ margin:0;padding:0; }
 #wrapper{height:100%;width:100%;margin:0;padding:0;}
-.card{ display:block;float:left;width:14%;height:100px;margin:1% 3%;box-shadow:0px 0px 3px #333;background:#fff }
+.card{ display:block;float:left;width:14.5%;height:200px;margin:1% 1%;box-shadow:0px 0px 3px #333;background:#fff;
+    border-radius:0px;
+    -moz-transition: border-radius box-shadow 1s;
+    -webkit-transition: border-radius box-shadow 1s;
+    -ms-transition: border-radius box-shadow 1s;
+    -o-transition: border-radius box-shadow 1s;
+    transition: border-radius box-shadow 1s; }
     .card:hover{ box-shadow:0px 0px 3px #000;cursor:pointer }
+.fullscreen.card{
+    box-shadow:0px 0px 15px #000;
+    border-radius:10px;
+    -moz-transition: border-radius box-shadow 1s;
+    -webkit-transition: border-radius box-shadow 1s;
+    -ms-transition: border-radius box-shadow 1s;
+    -o-transition: border-radius box-shadow 1s;
+    transition: border-radius box-shadow 1s; }
+.fullscreen.at-will.card{ border:2em solid #588D61; border-width:4em 1em 2em }
 
-h1{ font-size:14px; text-align:center;
-    -moz-transition: font-size 1s;
-    -webkit-transition: font-size 1s;
-    -ms-transition: font-size 1s;
-    -o-transition: font-size 1s;
-    transition: font-size 1s; }
+h1{ font-size:14px; text-align:center }
 .fullscreen h1{
+    text-shadow:2px 2px 0px #333;
     font-size:52px;
-    -moz-transition: font-size 1s;
-    -webkit-transition: font-size 1s;
-    -ms-transition: font-size 1s;
-    -o-transition: font-size 1s;
-    transition: font-size 1s;
+    margin:0;
+    padding:0;
+    color:#fff;
+    position:absolute;
+    display:block;
+    top:-1.2em;
+    left:.2em;
+    height:0;
 }

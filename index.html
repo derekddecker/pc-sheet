@@ -28,7 +28,11 @@
                  }),
                  Maximize = (function(what){
                     var $_el = $(what), //cache the element
-                        $_cloned_el = $_el.clone(); //clone the element
+                        $_cloned_el = $_el.clone(),
+                        maximizedHeight = .9,
+                        maximizedWidth = .9,
+                        fullSizeHeight = 0,
+                        fullSizeWidth = 0; //clone the element
 
                     //leave the actual element where it is, but visibility hidden
                     $_el.css({"visibility":'hidden'})
@@ -40,9 +44,16 @@
                      $('body').append($_cloned_el)
 
                     //let's move the card to the absolute center of the screen
-                     $_cloned_el.animate({"top":(verticalCenter-($_el.innerHeight()/2))+'px', "left":(horizontalCenter-($_el.innerWidth()/2))+'px'},function(){ $(this).addClass('fullscreen') })
+                     $_cloned_el.animate({"top":(verticalCenter-($_el.innerHeight()/2))+'px', "left":(horizontalCenter-($_el.innerWidth()/2))+'px'},function(){
+                         $(this).addClass('fullscreen')
 
-                     $_cloned_el.animate({ "height":'100%', "width":'100%', "top": 0, "left": 0 })
+                         //calculate dimensions based on screen size and border etc
+                         fullSizeHeight = parseFloat((window.innerHeight*maximizedHeight)-(parseFloat($_cloned_el.css('border-top-width'))+parseFloat($_cloned_el.css('border-bottom-width'))))+'px';
+                         fullSizeWidth = parseFloat((window.innerWidth*maximizedWidth)-(parseFloat($_cloned_el.css('border-left-width'))+parseFloat($_cloned_el.css('border-right-width'))))+'px';
+
+                         $_cloned_el.animate({ "height":fullSizeHeight, "width":fullSizeWidth, "top": ((window.innerHeight-(window.innerHeight*maximizedHeight))/2)+'px', "left": ((window.innerWidth-(window.innerWidth*maximizedWidth))/2)+'px' })
+                     })
+
                 })
             $('.card').bind('click',function(){ Maximize(this) })
         })
@@ -51,8 +62,8 @@
 <body>
 
 <div id="wrapper">
-    <div class="card">
-        <h1>Ability 1</h1>
+    <div class="card at-will">
+        <h1>Foe to Foe</h1>
     </div>
     <div class="card">
         <h1>Ability 2</h1>
