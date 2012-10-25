@@ -54,41 +54,40 @@
                          $_cloned_el.animate({ "height":fullSizeHeight, "width":fullSizeWidth, "top": ((window.innerHeight-(window.innerHeight*maximizedHeight))/2)+'px', "left": ((window.innerWidth-(window.innerWidth*maximizedWidth))/2)+'px' })
                      })
 
+                }),
+                NewCardType = (function(cardType){
+                    return $('<div class="card-type-subtext">'+cardType+' Power</div>')
+                }),
+                PrepareCards = (function(){
+                    $('.card').each(function(){
+                        var card = $(this)
+                        if(card.hasClass('at-will')) card.append(NewCardType('At-Will'))
+                        if(card.hasClass('encounter')) card.append(NewCardType('Encounter'))
+                        if(card.hasClass('utility')) card.append(NewCardType('Utility'))
+                        if(card.hasClass('daily')) card.append(NewCardType('Daily'))
+                    })
                 })
             $('.card').bind('click',function(){ Maximize(this) })
+            PrepareCards()
         })
     </script>
 </head>
 <body>
 
+<div id="background"><img src="assets/images/7820parchment.jpg" class="stretch" alt="" /></div>
 <div id="wrapper">
     <div class="card at-will">
         <h1>Foe to Foe</h1>
     </div>
-    <div class="card">
-        <h1>Ability 2</h1>
+    <div class="card encounter">
+        <h1>Burning Hands</h1>
     </div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
-    <div class="card"></div>
+    <div class="card daily">
+        <h1>Fireball</h1>
+    </div>
+    <div class="card utility">
+        <h1>Expeditious Retreat</h1>
+    </div>
 </div>
 
 </body>

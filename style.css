@@ -1,15 +1,60 @@
 html{height:100%;width:100%;overflow:hidden}
-body{ margin:0;padding:0; }
-#wrapper{height:100%;width:100%;margin:0;padding:0;}
-.card{ display:block;float:left;width:14.5%;height:200px;margin:1% 1%;box-shadow:0px 0px 3px #333;background:#fff;
-    border-radius:0px;
+body{ margin:0;padding:0;font-family:Helvetica }
+#wrapper{height:100%;width:100%;margin:0;padding:0;position:relative;z-index:1}
+#background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 0;
+}
+.stretch {
+    width:100%;
+    height:100%;
+}
+
+/** Small Cards **/
+.card{
+    position:relative;
+    box-shadow:0px 0px 10px #000;
+    z-index:2;
+    display:block;
+    float:left;
+    width:14.5%;
+    height:200px;
+    margin:1% 1%;
+    background:#fff;
+    border-radius:5px;
     -moz-transition: border-radius box-shadow 1s;
     -webkit-transition: border-radius box-shadow 1s;
     -ms-transition: border-radius box-shadow 1s;
     -o-transition: border-radius box-shadow 1s;
     transition: border-radius box-shadow 1s; }
-    .card:hover{ box-shadow:0px 0px 3px #000;cursor:pointer }
+.card:hover{cursor:pointer}
+
+.card.at-will{border:2em solid #588D61; border-width:1.2em .5em 1em}
+.card.encounter{border:2em solid #742A27; border-width:1.2em .5em 1em}
+.card.daily{border:2em solid #808171; border-width:1.2em .5em 1em}
+.card.utility{border:2em solid #23233D; border-width:1.2em .5em 1em}
+
+.card h1{
+    text-shadow:1px 1px 0px #333;
+    font-size:14px;
+    margin:0;
+    padding:0;
+    color:#fff;
+    position:absolute;
+    display:block;
+    top:-1.2em;
+    left:.2em;
+    height:0;
+}
+.card .card-type-subtext{ position:absolute;bottom:-1.4em;left:.1em;color:#fff;font-size:12px;text-transform:uppercase;font-weight:700 }
+
+/** Full Screen **/
 .fullscreen.card{
+    z-index:5;
     box-shadow:0px 0px 15px #000;
     border-radius:10px;
     -moz-transition: border-radius box-shadow 1s;
@@ -18,8 +63,10 @@ body{ margin:0;padding:0; }
     -o-transition: border-radius box-shadow 1s;
     transition: border-radius box-shadow 1s; }
 .fullscreen.at-will.card{ border:2em solid #588D61; border-width:4em 1em 2em }
+.fullscreen.encounter.card{ border:2em solid #742A27; border-width:4em 1em 2em }
+.fullscreen.daily.card{ border:2em solid #808171; border-width:4em 1em 2em }
+.fullscreen.utility.card{ border:2em solid #23233D; border-width:4em 1em 2em }
 
-h1{ font-size:14px; text-align:center }
 .fullscreen h1{
     text-shadow:2px 2px 0px #333;
     font-size:52px;
@@ -32,3 +79,5 @@ h1{ font-size:14px; text-align:center }
     left:.2em;
     height:0;
 }
+
+.fullscreen.card .card-type-subtext{ font-size:16px }
