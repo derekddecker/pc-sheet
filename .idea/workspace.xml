@@ -20,27 +20,63 @@
   <component name="FileEditorManager">
     <leaf>
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/index.html">
+        <entry file="file:///opt/lampp/htdocs/pc-sheet/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="84" selection-start="153" selection-end="153" vertical-scroll-proportion="-2.5">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="controller.js" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/js/controller.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="88" column="37" selection-start="4394" selection-end="4394" vertical-scroll-proportion="0.7662566">
+            <state line="21" column="22" selection-start="1249" selection-end="1249" vertical-scroll-proportion="-13.125">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="Card.tmpl.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/jqtmpl/Card.tmpl.html">
+        <entry file="file:///opt/lampp/htdocs/pc-sheet/jqtmpl/Card.tmpl.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="21" selection-start="106" selection-end="106" vertical-scroll-proportion="0.0">
+            <state line="2" column="41" selection-start="120" selection-end="120" vertical-scroll-proportion="-1.25">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Fixtures.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file:///opt/lampp/htdocs/pc-sheet/js/Fixtures.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="112" selection-start="1075" selection-end="1075" vertical-scroll-proportion="0.26785713">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CardTable.tmpl.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file:///opt/lampp/htdocs/pc-sheet/jqtmpl/CardTable.tmpl.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="4" column="51" selection-start="250" selection-end="250" vertical-scroll-proportion="-2.5">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="controller.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file:///opt/lampp/htdocs/pc-sheet/js/controller.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="130" column="43" selection-start="5997" selection-end="5997" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PowerTypes.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file:///opt/lampp/htdocs/pc-sheet/js/PowerTypes.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="23" selection-start="100" selection-end="118" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file:///opt/lampp/htdocs/pc-sheet/assets/css/style.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="21" column="9" selection-start="472" selection-end="472" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -56,11 +92,15 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/style.css" />
-        <option value="$PROJECT_DIR$/jqtmpl/card.html.tmpl.html" />
-        <option value="$PROJECT_DIR$/jqtmpl/card.tmpl.html" />
-        <option value="$PROJECT_DIR$/js/controller.js" />
-        <option value="$PROJECT_DIR$/index.html" />
+        <option value="/opt/lampp/htdocs/pc-sheet/style.css" />
+        <option value="/opt/lampp/htdocs/pc-sheet/jqtmpl/card.html.tmpl.html" />
+        <option value="/opt/lampp/htdocs/pc-sheet/jqtmpl/card.tmpl.html" />
+        <option value="/opt/lampp/htdocs/pc-sheet/jqtmpl/Card.tmpl.html" />
+        <option value="/opt/lampp/htdocs/pc-sheet/index.html" />
+        <option value="/opt/lampp/htdocs/pc-sheet/jqtmpl/CardTable.tmpl.html" />
+        <option value="/opt/lampp/htdocs/pc-sheet/assets/css/style.css" />
+        <option value="/opt/lampp/htdocs/pc-sheet/js/controller.js" />
+        <option value="/opt/lampp/htdocs/pc-sheet/js/Fixtures.js" />
       </list>
     </option>
   </component>
@@ -96,6 +136,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -110,7 +151,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="character_sheet" />
+              <option name="myItemId" value="pc-sheet" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -120,7 +161,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="character_sheet" />
+              <option name="myItemId" value="pc-sheet" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -134,7 +175,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="character_sheet" />
+              <option name="myItemId" value="pc-sheet" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -142,9 +183,40 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="character_sheet" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pc-sheet" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="character_sheet" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pc-sheet" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -224,13 +296,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="27" width="1368" height="742" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26363635" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26287878" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
@@ -298,68 +370,108 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file:///opt/lampp/htdocs/pc-sheet/jqtmpl/Card.tmpl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="21" selection-start="128" selection-end="128" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///opt/lampp/htdocs/pc-sheet/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="47" column="42" selection-start="2690" selection-end="2784" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file:///opt/lampp/htdocs/pc-sheet/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="42" column="190" selection-start="2472" selection-end="2472" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file:///opt/lampp/htdocs/pc-sheet/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="57" column="21" selection-start="2778" selection-end="2778" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file:///opt/lampp/htdocs/pc-sheet/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="32" selection-start="1224" selection-end="1224" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/Class.js">
+    <entry file="file:///opt/lampp/htdocs/pc-sheet/js/Class.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/DataObject.js">
+    <entry file="file:///opt/lampp/htdocs/pc-sheet/js/DataObject.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-1.8471001" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/jqtmpl/Card.tmpl.html">
+    <entry file="file:///opt/lampp/htdocs/pc-sheet/js/Util.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="21" selection-start="106" selection-end="106" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.67525774" />
+      </provider>
+    </entry>
+    <entry file="file:///opt/lampp/htdocs/pc-sheet/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="22" selection-start="1249" selection-end="1249" vertical-scroll-proportion="-13.125">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/Util.js">
+    <entry file="file:///opt/lampp/htdocs/pc-sheet/jqtmpl/Card.tmpl.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.67525774">
+        <state line="2" column="41" selection-start="120" selection-end="120" vertical-scroll-proportion="-1.25">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
+    <entry file="file:///opt/lampp/htdocs/pc-sheet/jqtmpl/CardTable.tmpl.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="84" selection-start="153" selection-end="153" vertical-scroll-proportion="-2.5">
+        <state line="4" column="51" selection-start="250" selection-end="250" vertical-scroll-proportion="-2.5">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/controller.js">
+    <entry file="file:///opt/lampp/htdocs/pc-sheet/js/PowerTypes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="37" selection-start="4394" selection-end="4394" vertical-scroll-proportion="0.7662566">
+        <state line="6" column="23" selection-start="100" selection-end="118" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///opt/lampp/htdocs/pc-sheet/js/Power.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///opt/lampp/htdocs/pc-sheet/assets/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="9" selection-start="472" selection-end="472" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///opt/lampp/htdocs/pc-sheet/js/controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="130" column="43" selection-start="5997" selection-end="5997" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///opt/lampp/htdocs/pc-sheet/js/Fixtures.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="112" selection-start="1075" selection-end="1075" vertical-scroll-proportion="0.26785713">
           <folding />
         </state>
       </provider>

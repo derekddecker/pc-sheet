@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/character_sheet.iml" filepath="$PROJECT_DIR$/.idea/character_sheet.iml" />
+      <module fileurl="file:///opt/lampp/htdocs/pc-sheet/.idea/character_sheet.iml" filepath="/opt/lampp/htdocs/pc-sheet/.idea/character_sheet.iml" />
     </modules>
   </component>
 </project>

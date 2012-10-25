@@ -3,6 +3,7 @@ $(function(){
     var TmplCache = {},
         horizontalCenter = Math.floor(window.innerWidth/2),
         verticalCenter = Math.floor(window.innerHeight/2),
+        markdownConverter = new Markdown.getSanitizingConverter(),
         Minimize = (function(what){
             var $_full_screen_el = $(what),
                 $_original_el = $_full_screen_el.data('original_el');
@@ -23,17 +24,17 @@ $(function(){
         }),
         Maximize = (function(what){
             var $_el = $(what), //cache the element
-                $_cloned_el = $_el.clone(),
+                $_cloned_el = $_el.clone(), //clone the element
                 maximizedHeight = .9,
                 maximizedWidth = .9,
                 fullSizeHeight = 0,
-                fullSizeWidth = 0; //clone the element
+                fullSizeWidth = 0;
 
             //leave the actual element where it is, but visibility hidden
             $_el.css({"visibility":'hidden'})
 
             //find the elements current position, make it absolute
-            $_cloned_el.data('original_el', $_el).bind('click',function(){ Minimize(this)}).css({"position":'absolute',"left":$_el.offset().left+'px',"top":$_el.offset().top+'px', "margin":0});
+            $_cloned_el.data('original_el', $_el).bind('click',function(){ Minimize(this)}).css({"position":'absolute',"height":$_el.innerHeight(),"width":$_el.innerWidth(),"left":$_el.offset().left+'px',"top":$_el.offset().top+'px'});
 
             //append the cloned element to the page
             $('body').append($_cloned_el)
@@ -53,13 +54,19 @@ $(function(){
         NewCardType = (function(cardType){
             return $('<div class="card-type-subtext">'+cardType+' Power</div>')
         }),
-        PrepareCards = (function(){
-            $('.card').each(function(){
-                var card = $(this)
-                if(card.hasClass('at-will')) card.append(NewCardType('At-Will'))
-                if(card.hasClass('encounter')) card.append(NewCardType('Encounter'))
-                if(card.hasClass('utility')) card.append(NewCardType('Utility'))
-                if(card.hasClass('daily')) card.append(NewCardType('Daily'))
+        PrepareCard = (function(card){
+            if(card.hasClass('at-will')) card.append(NewCardType('At-Will'))
+            if(card.hasClass('encounter')) card.append(NewCardType('Encounter'))
+            if(card.hasClass('utility')) card.append(NewCardType('Utility'))
+            if(card.hasClass('daily')) card.append(NewCardType('Daily'))
+        }),
+        StackCards = (function(){
+            $('.card-table-col').each(function(){
+                var offset = 0;
+                $(this).find('.card').each(function(){
+                    $(this).css({'top':offset});
+                    offset += 20;
+                })
             })
         }),
 
@@ -91,23 +98,44 @@ $(function(){
         }),
 
         TmplList = {
+            'CardTable': (function(result){}),
             'Card': (function(result){
+                result.bind('click',function(){ Maximize(this) })
+                PrepareCard(result);
 
+                var _description = result.find('.description'),
+                    preConvertedMarkdown = _description.text();
+                _description.empty().append(markdownConverter.makeHtml(preConvertedMarkdown));
+            })
+        },
+
+        Layout = {
+            "init" : (function(callback){
+                RenderTemplate('CardTable', {}, function(result){
+                    $('#wrapper').append(result)
+                    callback();
+                })
+            })
+        },
+
+        AddCardToTable = (function(_power){
+            RenderTemplate('Card', _power, function(result){
+                $('#card-table').find('#'+PowerTypes.getCssClassForType(_power.Type)+'-powers').append(result)
+            })
+        }),
+
+        Fixtures = {
+            "init" : (function(){
+                for(var i in CharacterSheet.Powers){
+                    var _power = CharacterSheet.Powers[i];
+                    AddCardToTable(_power);
+                }
+                StackCards();
             })
         },
 
         OnReady = (function(){
-            $('.card').bind('click',function(){ Maximize(this) })
-            PrepareCards()
-
-            var converter = new Markdown.getSanitizingConverter();
-
-            $('.markdown').each(function(){
-                var $_el = $(this),
-                    preConvertedMarkdown = $(this).text();
-
-                $_el.empty().append(converter.makeHtml(preConvertedMarkdown));
-            })
+            Layout.init(Fixtures.init)
         })
 
     LoadTemplates(OnReady)
