@@ -1,4 +1,4 @@
-var CharacterSheet = new CharacterSheet({
+var PCSHEET = new CharacterSheet({
     Powers:[
         {"Name":'Foe to Foe', "Type": PowerTypes.AtWill, "Description": "**This is bold**\r\n_This is italic_"},
         {"Name":'Burning Hands', "Type": PowerTypes.Encounter, "Description": "**This is bold**\r\n_This is italic_"},
