@@ -7,5 +7,8 @@ var Power = DataObject.extend({
         "Name" : 'Power',
         "Description" : '',
         "Type" : PowerTypes.AtWill
-    }
+    },
+    changed: (function(){
+        Util.trace(this, ' CHANGED!')
+    })
 });

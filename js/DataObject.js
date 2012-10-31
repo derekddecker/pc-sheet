@@ -37,8 +37,30 @@ var DataObject =  Class.extend({
             if(hash[i] instanceof DataObject && !$.isArray( hash[i] ))
                 hash[i] = $.extend({},hash[i]); //make sure we get a unique instance.
 
-             //declare all the instance variables
-            if(typeof this['set'+i] !== 'undefined'){
+            /**
+             * // Try to guess nested object instantiation
+             *
+             * This makes it so we don't have to configure
+             * each setter method for nested arrays of objects.
+             *
+             * For example, if a Chart instance has an array of People properties,
+             * simply name the property 'Peoples' (note the 's' for primitive pluralization)
+             * and ensure that you have a class name of People available. We will then assume
+             * a JSON object literal coming in in a 'Peoples' property should be an instance of
+             * a People class. This way we retain all expected method availability of that class
+             * type.
+             */
+            if(typeof window[i.substr(0, i.length-1)] !== 'undefined' && (new window[i.substr(0, i.length-1)]) instanceof DataObject === true)
+            {
+                this[i] = []
+                for(var j in hash[i])
+                {
+                    var nested_object = new window[i.substr(0, i.length-1)](hash[i][j])
+                    this[i].push( nested_object )
+                }
+            }
+            //declare all the instance variables
+            else if(typeof this['set'+i] !== 'undefined'){
                 this['set'+i](hash[i]);
             }else{
                 this[i] = hash[i];
@@ -99,5 +121,7 @@ var DataObject =  Class.extend({
     //this
     clone : (function(){
         return new window[this.ClassName]( JSON.parse( this.stringify() ) );
-    })
+    }),
+
+    changed : (function(){})
 });

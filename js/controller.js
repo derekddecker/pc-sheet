@@ -108,6 +108,10 @@ $(function(){
                     if(card.hasClass('encounter')) card.append(NewCardType('Encounter'))
                     if(card.hasClass('utility')) card.append(NewCardType('Utility'))
                     if(card.hasClass('daily')) card.append(NewCardType('Daily'))
+
+                    var _description = card.find('.description'),
+                        preConvertedMarkdown = _description.text();
+                    _description.empty().append(markdownConverter.makeHtml(preConvertedMarkdown));
                 }),
                 StackCards = (function(){
                     $('.card-table-col').each(function(){
@@ -158,25 +162,161 @@ $(function(){
                      */
                     RenderTemplate = (function(TemplateName, Object, Callback, Params){
                         var result = $.tmpl(TmplCache[ TemplateName ], Object);
+
+                        //bind the object to the top level element of the result
+                        result.find('form.editable').find('.editable-field').data('obj', Object);
+
+                        //make editable props editable
+                        DataBinding.make_editable(result)
+
                         var postRenderCallback = TmplList[TemplateName]( result, Object, Params );
                         if(Callback) Callback( result, postRenderCallback );
                     }),
                     TmplList = {
                         'Debug': (function(result){}),
                         'CardTable': (function(result){}),
-                        'Card': (function(result){
+                        'Card': (function(result, cardObject){
                             result.bind('click',function(){ PowerCards.maximize(this) })
                             PowerCards.prepare(result);
-
-                            var _description = result.find('.description'),
-                                preConvertedMarkdown = _description.text();
-                            _description.empty().append(markdownConverter.makeHtml(preConvertedMarkdown));
                         })
                     }
             return {
                 load: Load,
                 render: RenderTemplate,
             }
+        })(),
+        DataBinding = (function(){
+
+            var get_editable_element_properties = (function(el){
+
+                    var original_element = $(el),
+                        editable_object = original_element.data('obj'),
+                        object_property_name = original_element.data('property') || $(original_element.data('previous-element')).data('property');
+
+                    return {
+                        "original_element" : original_element,
+                        "editable_object" : editable_object,
+                        "input_element" : '',
+                        "input_type" : original_element.data('input-type') || original_element[0].tagName,
+                        "object_property_name" : object_property_name || original_element.attr('name'),
+                        "object_property_value" : original_element.val() || editable_object[object_property_name]
+                    }
+                }),
+                make_element_editable = (function(el){
+
+                    var el_props = get_editable_element_properties(el);
+
+                    switch(el_props.input_type){
+                        case 'textarea':
+                            input_element = '<textarea>' + el_props.object_property_value + '</textarea>'
+                            break;
+                        case 'select':
+                            input_element = '<select></select>'
+                        default:
+                            input_element = '<input name="' + el_props.object_property_name + '" type="'+ el_props.input_type +'" value="' + el_props.object_property_value + '"/>'
+                            break;
+                    }
+
+                    var new_element = $(input_element).bind('click', function(e){e.stopPropagation()}).data('obj', $(el).data('obj'))
+
+                    new_element.data('previous-element', el);
+
+                    el_props.original_element.replaceWith(new_element)
+                }),
+                update_callbacks = {
+                    "Power" : {
+                        "Description" : (function(element){
+                            //re-render the markdown
+                            var _description = element,
+                                preConvertedMarkdown = _description.text();
+                            _description.empty().append(markdownConverter.makeHtml(preConvertedMarkdown));
+                        })
+                    }
+                },
+                restore_uneditable_state = (function(el){
+
+                    var el_props = get_editable_element_properties(el),
+                        uneditable_element = $(el_props.original_element.data('previous-element')).data('obj', $(el).data('obj') ).text(el_props.editable_object[el_props.object_property_name]);
+
+                    $(el).replaceWith( uneditable_element );
+
+                    //post update callback
+                    if(typeof update_callbacks[el_props.editable_object.ClassName][el_props.object_property_name] === 'function')
+                        update_callbacks[el_props.editable_object.ClassName][el_props.object_property_name](uneditable_element)
+
+                }),
+                edit_button = '<div class="edit-control"><a href="javascript:;"><img src="assets/images/edit_icon.gif" /></a></div>',
+                properties_updated = (function(){
+                    event.stopPropagation();
+                    var objects_to_trigger_change_on = [],
+                        parent_form = $(this).parents('form.editable:first');
+
+                    parent_form.find('input,select,textarea').each(function(){
+                        var el_props = get_editable_element_properties(this),
+                            original_object = el_props.editable_object,
+                            add_to_change_list = true,
+                            property_changed = false;
+
+                        if(original_object.hasOwnProperty(el_props.object_property_name))
+                        {
+                            if(original_object[el_props.object_property_name] !== el_props.object_property_value)
+                            {
+                                original_object[el_props.object_property_name] = el_props.object_property_value;
+                                property_changed = true;
+                            }
+                        }
+
+                        if(property_changed)
+                        {
+                            for(var i in objects_to_trigger_change_on)
+                            {
+                                if(objects_to_trigger_change_on[i] === original_object)
+                                {
+                                    add_to_change_list = false;
+                                }
+                            }
+                            if(add_to_change_list)
+                            {
+                                objects_to_trigger_change_on.push(original_object)
+                            }
+                        }
+                        restore_uneditable_state(this)
+                    })
+                    for(var i in objects_to_trigger_change_on){
+                        if(typeof objects_to_trigger_change_on[i].changed === 'function')
+                            objects_to_trigger_change_on[i].changed();
+                    }
+
+                    parent_form.find('button.update').remove();
+                    make_editable(parent_form)
+
+                }),
+                update_button = $('<button class="update">Update</button>').bind('click', properties_updated),
+                edit_button_clicked = (function(event){
+                    event.stopPropagation();
+
+                    $(this).hide().parents('form.editable:first').append(update_button.clone(true)).find('.editable-field').each(function(){
+                        make_element_editable(this);
+                    })
+                }),
+                add_edit_button = (function(el){
+                    var pencil_icon = $(edit_button).bind('click', edit_button_clicked)
+                    $(el).append(pencil_icon)
+                }),
+                make_editable = (function($el){
+                    var editables = $el.find('form.editable');
+
+                    if($el.hasClass('editable') && $el[0].tagName == 'FORM') editables.push($el)
+
+                    editables.each(function(){
+                        $(this).bind('submit', function(event){ event.preventDefault(); })
+                        add_edit_button(this)
+                    })
+                })
+
+             return {
+                 "make_editable" : make_editable
+             }
         })(),
         Layout = (function(){
             var body = $('body'),
