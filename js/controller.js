@@ -55,78 +55,79 @@ $(function(){
         PowerCards = (function(){
             var Minimize = (function(what){
                 var $_full_screen_el = $(what),
-                    $_original_el = $_full_screen_el.data('original_el');
+                    $_marker_el = $_full_screen_el.data('marker');
 
                 //shrink down to original size and to center of screen
-                $_full_screen_el.animate({ "height":$_original_el.innerHeight(), "width":$_original_el.innerWidth(), "top":(verticalCenter-($_original_el.innerHeight()/2))+'px', "left":(horizontalCenter-($_original_el.innerWidth()/2))+'px' }).removeClass('fullscreen')
+                $_full_screen_el.animate({ "height":$_marker_el.innerHeight(), "width":$_marker_el.innerWidth(), "top":(verticalCenter-($_marker_el.innerHeight()/2))+'px', "left":(horizontalCenter-($_marker_el.innerWidth()/2))+'px' }, function(){
+                    $(this).removeClass('fullscreen').unbind('click').bind('click', function(){Maximize(this)})
+                    //move it back into it's original position
+                    $_full_screen_el.animate({"position":'absolute',"left":$_marker_el.offset().left+'px',"top":$_marker_el.offset().top+'px'}, (function(){
+                        //remove the marker
+                        $_marker_el.replaceWith($_full_screen_el.attr('style',$_marker_el.attr('style')).css('visibility','visible'))
+                    }))
+                })
 
-                //move it back into it's original position
-                $_full_screen_el.animate({"position":'absolute',"left":$_original_el.offset().left+'px',"top":$_original_el.offset().top+'px'}, function(){
+            }),
+            Maximize = (function(what){
+                var $_el = $(what), //cache the element
+                    $_cloned_el = $_el.clone(true), //deep clone the element
+                    maximizedHeight = .9,
+                    maximizedWidth = .9,
+                    fullSizeHeight = 0,
+                    fullSizeWidth = 0,
+                    $_marker = $_el.clone().css('visibility','hidden');
 
-                    //make the original element visible
-                    $_original_el.css({"visibility":'visible'})
+                //find the elements current position, make it absolute
+                $_el.unbind('click').bind('click',function(){ Minimize(this)}).css({"position":'absolute',"height":$_el.innerHeight(),"width":$_el.innerWidth(),"left":$_el.offset().left+'px',"top":$_el.offset().top+'px'});
 
-                    //remove the full screen element
-                    $_full_screen_el.remove()
+                //leave a marker element so we can return to this position
+                $_el.after($_marker).data('marker',$_marker)
 
+                //append the cloned element to the page
+                $('body').append($_el)
+
+                //let's move the card to the absolute center of the screen
+                $_el.animate({"top":(verticalCenter-($_el.innerHeight()/2))+'px', "left":(horizontalCenter-($_el.innerWidth()/2))+'px'},function(){
+                    $(this).addClass('fullscreen')
+
+                    //calculate dimensions based on screen size and border etc
+                    fullSizeHeight = parseFloat((window.innerHeight*maximizedHeight)-(parseFloat($_el.css('border-top-width'))+parseFloat($_el.css('border-bottom-width'))))+'px';
+                    fullSizeWidth = parseFloat((window.innerWidth*maximizedWidth)-(parseFloat($_el.css('border-left-width'))+parseFloat($_el.css('border-right-width'))))+'px';
+
+                    $_el.animate({ "height":fullSizeHeight, "width":fullSizeWidth, "top": ((window.innerHeight-(window.innerHeight*maximizedHeight))/2)+'px', "left": ((window.innerWidth-(window.innerWidth*maximizedWidth))/2)+'px' })
+                })
+
+            }),
+            PrepareCard = (function(card){
+                var _description = card.find('.description'),
+                    preConvertedMarkdown = _description.text(),
+                    cardType = card.find('.card-type-subtext'),
+                    cardTypeClass = PowerTypes.getCssClassForType(cardType.text());
+
+                _description.empty().append(markdownConverter.makeHtml(preConvertedMarkdown));
+
+                cardType.text(cardTypeClass + " Power")
+
+                //remove any power type classes, as we could be changing powertype
+                for(var i in PowerTypes.each()){
+                    card.removeClass( PowerTypes.getCssClassForType( PowerTypes[PowerTypes.each()[i].val] ) )
+                }
+                card.addClass('card ' + cardTypeClass)
+            }),
+            StackCards = (function(){
+                $('.card-table-col').each(function(){
+                    var offset = 0;
+                    $(this).find('.card').each(function(){
+                        $(this).css({'top':offset});
+                        offset += 20;
+                    })
                 })
             }),
-                Maximize = (function(what){
-                    var $_el = $(what), //cache the element
-                        $_cloned_el = $_el.clone(), //clone the element
-                        maximizedHeight = .9,
-                        maximizedWidth = .9,
-                        fullSizeHeight = 0,
-                        fullSizeWidth = 0;
-
-                    //leave the actual element where it is, but visibility hidden
-                    $_el.css({"visibility":'hidden'})
-
-                    //find the elements current position, make it absolute
-                    $_cloned_el.data('original_el', $_el).bind('click',function(){ Minimize(this)}).css({"position":'absolute',"height":$_el.innerHeight(),"width":$_el.innerWidth(),"left":$_el.offset().left+'px',"top":$_el.offset().top+'px'});
-
-                    //append the cloned element to the page
-                    $('body').append($_cloned_el)
-
-                    //let's move the card to the absolute center of the screen
-                    $_cloned_el.animate({"top":(verticalCenter-($_el.innerHeight()/2))+'px', "left":(horizontalCenter-($_el.innerWidth()/2))+'px'},function(){
-                        $(this).addClass('fullscreen')
-
-                        //calculate dimensions based on screen size and border etc
-                        fullSizeHeight = parseFloat((window.innerHeight*maximizedHeight)-(parseFloat($_cloned_el.css('border-top-width'))+parseFloat($_cloned_el.css('border-bottom-width'))))+'px';
-                        fullSizeWidth = parseFloat((window.innerWidth*maximizedWidth)-(parseFloat($_cloned_el.css('border-left-width'))+parseFloat($_cloned_el.css('border-right-width'))))+'px';
-
-                        $_cloned_el.animate({ "height":fullSizeHeight, "width":fullSizeWidth, "top": ((window.innerHeight-(window.innerHeight*maximizedHeight))/2)+'px', "left": ((window.innerWidth-(window.innerWidth*maximizedWidth))/2)+'px' })
-                    })
-
-                }),
-                NewCardType = (function(cardType){
-                    return $('<div class="card-type-subtext">'+cardType+' Power</div>')
-                }),
-                PrepareCard = (function(card){
-                    if(card.hasClass('at-will')) card.append(NewCardType('At-Will'))
-                    if(card.hasClass('encounter')) card.append(NewCardType('Encounter'))
-                    if(card.hasClass('utility')) card.append(NewCardType('Utility'))
-                    if(card.hasClass('daily')) card.append(NewCardType('Daily'))
-
-                    var _description = card.find('.description'),
-                        preConvertedMarkdown = _description.text();
-                    _description.empty().append(markdownConverter.makeHtml(preConvertedMarkdown));
-                }),
-                StackCards = (function(){
-                    $('.card-table-col').each(function(){
-                        var offset = 0;
-                        $(this).find('.card').each(function(){
-                            $(this).css({'top':offset});
-                            offset += 20;
-                        })
-                    })
-                }),
-                AddCardToTable = (function(_power){
-                    Templates.render('Card', _power, function(result){
-                        $('#card-table').find('#'+PowerTypes.getCssClassForType(_power.Type)+'-powers').append(result)
-                    })
+            AddCardToTable = (function(_power){
+                Templates.render('Card', _power, function(result){
+                    $('#card-table').find('#'+PowerTypes.getCssClassForType(_power.Type)+'-powers').append(result)
                 })
+            })
 
             return {
                 prepare: PrepareCard,
@@ -155,34 +156,34 @@ $(function(){
                             })
                         })
                     }),
-                    /**
-                     * @param string TemplateName
-                     * @param object Object
-                     * @param function Callback
-                     */
-                    RenderTemplate = (function(TemplateName, Object, Callback, Params){
-                        var result = $.tmpl(TmplCache[ TemplateName ], Object);
+                /**
+                 * @param string TemplateName
+                 * @param object Object
+                 * @param function Callback
+                 */
+                RenderTemplate = (function(TemplateName, Object, Callback, Params){
+                    var result = $.tmpl(TmplCache[ TemplateName ], Object);
 
-                        //bind the object to the top level element of the result
-                        result.find('form.editable').find('.editable-field').data('obj', Object);
+                    //bind the object to the top level element of the result
+                    result.find('form.editable').find('.editable-field').data('obj', Object);
 
-                        //make editable props editable
-                        DataBinding.make_editable(result)
+                    //make editable props editable
+                    DataBinding.make_editable(result)
 
-                        var postRenderCallback = TmplList[TemplateName]( result, Object, Params );
-                        if(Callback) Callback( result, postRenderCallback );
-                    }),
-                    TmplList = {
-                        'Debug': (function(result){}),
-                        'CardTable': (function(result){}),
-                        'Card': (function(result, cardObject){
-                            result.bind('click',function(){ PowerCards.maximize(this) })
-                            PowerCards.prepare(result);
-                        })
-                    }
+                    var postRenderCallback = TmplList[TemplateName]( result, Object, Params );
+                    if(Callback) Callback( result, postRenderCallback );
+                }),
+                TmplList = {
+                    'Debug': (function(result){}),
+                    'CardTable': (function(result){}),
+                    'Card': (function(result){
+                        result.bind('click',function(){ PowerCards.maximize(this) })
+                        PowerCards.prepare(result);
+                    })
+                }
             return {
                 load: Load,
-                render: RenderTemplate,
+                render: RenderTemplate
             }
         })(),
         DataBinding = (function(){
@@ -196,6 +197,7 @@ $(function(){
                     return {
                         "original_element" : original_element,
                         "editable_object" : editable_object,
+                        "select_options_constant" :original_element.data('options'),
                         "input_element" : '',
                         "input_type" : original_element.data('input-type') || original_element[0].tagName,
                         "object_property_name" : object_property_name || original_element.attr('name'),
@@ -208,12 +210,21 @@ $(function(){
 
                     switch(el_props.input_type){
                         case 'textarea':
-                            input_element = '<textarea>' + el_props.object_property_value + '</textarea>'
+                            var input_element = '<textarea>' + el_props.object_property_value + '</textarea>'
                             break;
                         case 'select':
-                            input_element = '<select></select>'
+                            var input_element = '<select>',
+                                options = window[el_props.select_options_constant].each();
+                            for(var i in options)
+                            {
+                                var option = options[i],
+                                    selected = (option.val == el_props.object_property_value) ? 'selected' : ''
+                                input_element += '<option value="'+option.val+'" '+selected+'>'+option.text+'</option>'
+                            }
+                            input_element += '</select>'
+                            break;
                         default:
-                            input_element = '<input name="' + el_props.object_property_name + '" type="'+ el_props.input_type +'" value="' + el_props.object_property_value + '"/>'
+                            var input_element = '<input name="' + el_props.object_property_name + '" type="'+ el_props.input_type +'" value="' + el_props.object_property_value + '"/>'
                             break;
                     }
 
@@ -225,11 +236,8 @@ $(function(){
                 }),
                 update_callbacks = {
                     "Power" : {
-                        "Description" : (function(element){
-                            //re-render the markdown
-                            var _description = element,
-                                preConvertedMarkdown = _description.text();
-                            _description.empty().append(markdownConverter.makeHtml(preConvertedMarkdown));
+                        "all" : (function(element){
+                            PowerCards.prepare(element.parents('.card:first'))
                         })
                     }
                 },
@@ -243,19 +251,20 @@ $(function(){
                     //post update callback
                     if(typeof update_callbacks[el_props.editable_object.ClassName][el_props.object_property_name] === 'function')
                         update_callbacks[el_props.editable_object.ClassName][el_props.object_property_name](uneditable_element)
-
                 }),
                 edit_button = '<div class="edit-control"><a href="javascript:;"><img src="assets/images/edit_icon.gif" /></a></div>',
-                properties_updated = (function(){
+                properties_updated = (function(event){
                     event.stopPropagation();
                     var objects_to_trigger_change_on = [],
+                        all_objects_checked = [],
                         parent_form = $(this).parents('form.editable:first');
 
                     parent_form.find('input,select,textarea').each(function(){
                         var el_props = get_editable_element_properties(this),
                             original_object = el_props.editable_object,
                             add_to_change_list = true,
-                            property_changed = false;
+                            property_changed = false,
+                            add_to_object_list = true;
 
                         if(original_object.hasOwnProperty(el_props.object_property_name))
                         {
@@ -280,28 +289,51 @@ $(function(){
                                 objects_to_trigger_change_on.push(original_object)
                             }
                         }
+                        for(var i in all_objects_checked)
+                        {
+                            if(all_objects_checked[i] === original_object)
+                            {
+                                add_to_object_list = false;
+                            }
+                        }
+                        if(add_to_object_list)
+                        {
+                            all_objects_checked.push(original_object)
+                        }
                         restore_uneditable_state(this)
+
                     })
                     for(var i in objects_to_trigger_change_on){
                         if(typeof objects_to_trigger_change_on[i].changed === 'function')
                             objects_to_trigger_change_on[i].changed();
                     }
+                    for(var i in all_objects_checked){
+                        if(typeof update_callbacks[all_objects_checked[i].ClassName]['all'] === 'function'){
+                            update_callbacks[all_objects_checked[i].ClassName]['all']($(this))
+                        }
+                    }
 
                     parent_form.find('button.update').remove();
                     make_editable(parent_form)
+                    parent_form.find('.edit-control').show()
 
                 }),
                 update_button = $('<button class="update">Update</button>').bind('click', properties_updated),
                 edit_button_clicked = (function(event){
                     event.stopPropagation();
 
+                    Util.trace('Edit button clicked!')
+
                     $(this).hide().parents('form.editable:first').append(update_button.clone(true)).find('.editable-field').each(function(){
                         make_element_editable(this);
                     })
                 }),
                 add_edit_button = (function(el){
-                    var pencil_icon = $(edit_button).bind('click', edit_button_clicked)
-                    $(el).append(pencil_icon)
+                    if($(el).find('.edit-control').length === 0)
+                    {
+                        var pencil_icon = $(edit_button).bind('click', edit_button_clicked)
+                        $(el).append(pencil_icon)
+                    }
                 }),
                 make_editable = (function($el){
                     var editables = $el.find('form.editable');

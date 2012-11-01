@@ -1,16 +1,22 @@
-var PowerTypes = {
-    "AtWill" : 1,
-    "Encounter" : 2,
-    "Utility" : 3,
-    "Daily" : 4,
+var PowerTypes = (function(){
 
-    "getCssClassForType" : (function(val){
-        switch(val){
-            case 1: return 'at-will'
-            case 2: return 'encounter'
-            case 3: return 'utility'
-            case 4: return 'daily'
-            default: return ''
-        }
+    var options = {
+        1 : "At-Will",
+        2 : "Encounter",
+        3 : "Utility",
+        4 : "Daily"
+    }
+
+    var ret = {}
+    for(var i in options){ ret[options[i]] = i }
+    ret["getCssClassForType"] = (function(val){
+        return (options[val]) ? options[val].toLowerCase() : '';
     })
-}
+    ret["each"] = (function(){
+        var r = []
+        for(var i in options){ r.push({"text":options[i],"val":i}) }
+        return r;
+    })
+    Util.trace(ret)
+    return ret;
+})()

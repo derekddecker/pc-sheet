@@ -1,6 +1,7 @@
-<div class="card ${PowerTypes.getCssClassForType(Type)}">
+<div class="card">
     <form class="editable">
         <h1 data-input-type="text" data-property="Name" class="editable-field">${Name}</h1>
         <p data-input-type="textarea" data-property="Description" class="editable-field description">${Description}</p>
+        <div class="card-type-subtext editable-field" data-input-type="select" data-property="Type" data-options="PowerTypes">${Type}</div>
     </form>
 </div>
