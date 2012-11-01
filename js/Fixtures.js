@@ -1,14 +1,1 @@
-var PCSHEET = new CharacterSheet({
-    Powers:[
-        {"Name":'Foe to Foe', "Type": PowerTypes['At-Will'], "Description": "**This is bold**\r\n_This is italic_"},
-        {"Name":'Burning Hands', "Type": PowerTypes['Encounter'], "Description": "**This is bold**\r\n_This is italic_"},
-        {"Name":'Fireball', "Type": PowerTypes['Daily'], "Description": "**This is bold**\r\n_This is italic_"},
-        {"Name":'Fuck Shit Up', "Type": PowerTypes['Daily'], "Description": "**This is bold**\r\n_This is italic_"},
-        {"Name":'Foe to Foe', "Type": PowerTypes['At-Will'], "Description": "**This is bold**\r\n_This is italic_"},
-        {"Name":'Foe to Foe', "Type": PowerTypes['At-Will'], "Description": "**This is bold**\r\n_This is italic_"},
-        {"Name":'Foe to Foe', "Type": PowerTypes['At-Will'], "Description": "**This is bold**\r\n_This is italic_"},
-        {"Name":'Foe to Foe', "Type": PowerTypes['At-Will'], "Description": "**This is bold**\r\n_This is italic_"},
-        {"Name":'Foe to Foe', "Type": PowerTypes['At-Will'], "Description": "**This is bold**\r\n_This is italic_"},
-        {"Name":'Expeditious Retreat', "Type": PowerTypes['Utility'], "Description": "**This is bold**\r\n_This is italic_"}
-    ]
-});
+var PCSHEET = new CharacterSheet({"Powers":[{"Name":"Foe to Foe","Description":"**This is bold**\r\n_This is italic_","Type":"1","ClassName":"Power"},{"Name":"Burning Hands","Description":"**This is bold**  \n_This is italic_  \n\n - This\n - is\n - a\n - list\n\nThat's changed!","Type":"2","ClassName":"Power"},{"Name":"Fireball","Description":"**This is bold**\r\n_This is italic_","Type":"4","ClassName":"Power"},{"Name":"Destroy It All","Description":"**This is bold**\n_This is italic_","Type":"4","ClassName":"Power"},{"Name":"Foe to Foe","Description":"**This is bold**\r\n_This is italic_","Type":"1","ClassName":"Power"},{"Name":"Foe to Foe","Description":"**This is bold**\r\n_This is italic_","Type":"1","ClassName":"Power"},{"Name":"Foe to Foe","Description":"**This is bold**\r\n_This is italic_","Type":"1","ClassName":"Power"},{"Name":"Foe to Foe","Description":"**This is bold**\r\n_This is italic_","Type":"1","ClassName":"Power"},{"Name":"Foe to Foe","Description":"**This is bold**\r\n_This is italic_","Type":"1","ClassName":"Power"},{"Name":"Expeditious Retreat","Description":"**This is bold**\r\n_This is italic_","Type":"3","ClassName":"Power"}],"ClassName":"CharacterSheet"});

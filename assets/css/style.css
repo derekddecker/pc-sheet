@@ -39,7 +39,7 @@ body{ margin:0;padding:0;font-family:Helvetica }
 .card.encounter{border:2em solid #742A27; border-width:1.2em .5em 1em}
 .card.daily{border:2em solid #808171; border-width:1.2em .5em 1em}
 .card.utility{border:2em solid #23233D; border-width:1.2em .5em 1em}
-
+.card .edit-control{ display:block; width:15px; height:15px; top:5px; right:5px; position:absolute; }
 .card h1{
     text-shadow:1px 1px 0px #333;
     font-size:14px;
@@ -68,6 +68,8 @@ body{ margin:0;padding:0;font-family:Helvetica }
 .fullscreen.encounter.card{ border:2em solid #742A27; border-width:4em 1em 2em }
 .fullscreen.daily.card{ border:2em solid #808171; border-width:4em 1em 2em }
 .fullscreen.utility.card{ border:2em solid #23233D; border-width:4em 1em 2em }
+.fullscreen.card [name="Description"]{ height:100px; width:95%; margin:10px }
+.fullscreen.card [name="Name"]{ font-size:42px;position:absolute; top:-1.2em; left:.2em;height:15%; width:95% }
 
 .fullscreen h1{
     text-shadow:2px 2px 0px #333;

@@ -33,7 +33,9 @@ $(function(){
                 }),
                 LoadConfig = (function(){
                     try{
-                        window.PCSHEET = new CharacterSheet(JSON.parse(localStorage.getItem(localStorageName)))
+                        var local_stored_data = localStorage.getItem(localStorageName)
+                        Util.trace('Loading JSON Saved data ',local_stored_data)
+                        window.PCSHEET = new CharacterSheet(JSON.parse(local_stored_data))
                         Layout.clear_and_init(Fixtures.init)
                     }catch(e){ alert(e.message) }
                 }),
@@ -210,10 +212,10 @@ $(function(){
 
                     switch(el_props.input_type){
                         case 'textarea':
-                            var input_element = '<textarea>' + el_props.object_property_value + '</textarea>'
+                            var input_element = '<textarea name="' + el_props.object_property_name + '">' + el_props.object_property_value + '</textarea>'
                             break;
                         case 'select':
-                            var input_element = '<select>',
+                            var input_element = '<select name="' + el_props.object_property_name + '">',
                                 options = window[el_props.select_options_constant].each();
                             for(var i in options)
                             {
