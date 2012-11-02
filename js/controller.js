@@ -111,10 +111,12 @@ $(function(){
                 cardType.text(cardTypeClass + " Power")
 
                 //remove any power type classes, as we could be changing powertype
-                for(var i in PowerTypes.each()){
-                    card.removeClass( PowerTypes.getCssClassForType( PowerTypes[PowerTypes.each()[i].val] ) )
+                var _powerTypes = PowerTypes.each()
+                for(var i in _powerTypes){
+                    var powerType = _powerTypes[i]
+                    card.removeClass( PowerTypes.getCssClassForType( parseInt( powerType.val )) )
                 }
-                card.addClass('card ' + cardTypeClass)
+                card.addClass(cardTypeClass)
             }),
             StackCards = (function(){
                 $('.card-table-col').each(function(){
