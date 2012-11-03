@@ -144,22 +144,32 @@ $(function(){
         Templates = (function(){
             var TmplCache = {},
                 Load =
-                    (function(callback){
-                        $.each(TmplList, function(i){
-                            var ct = i;
+                (function(callback){
+                    $.each(TmplList, function(i){
+                        var ct = i;
 
-                            $.ajax({
-                                url:'jqtmpl/'+ct+'.tmpl.html',
-                                cache:false,
-                                type:'GET',
-                                success:function(template){
-                                    $('head').append('<script type="text/x-jquery-tmpl" id="'+ct+'">'+template+'</script>');
-                                    TmplCache[ ct ] = template;
-                                    if(Util.GetObjectSize(TmplList) === Util.GetObjectSize(TmplCache)) callback();
-                                }
-                            })
+                        $.ajax({
+                            url:'jqtmpl/'+ct+'.tmpl.html',
+                            cache:false,
+                            type:'GET',
+                            success:function(template){
+                                $('head').append('<script type="text/x-jquery-tmpl" id="'+ct+'">'+template+'</script>');
+                                TmplCache[ ct ] = template;
+                                if(Util.GetObjectSize(TmplList) === Util.GetObjectSize(TmplCache)) callback();
+                            }
                         })
+                    })
+                }),
+                TmplList = {
+                    'Debug': (function(result, Object, Params){}),
+                    'CardTable': (function(result, Object, Params){
+                        result.css({'height':window.innerHeight})
                     }),
+                    'Card': (function(result, Object, Params){
+                        result.bind('click',function(){ PowerCards.maximize(this) })
+                        PowerCards.prepare(result);
+                    })
+                },
                 /**
                  * @param string TemplateName
                  * @param object Object
@@ -176,15 +186,7 @@ $(function(){
 
                     var postRenderCallback = TmplList[TemplateName]( result, Object, Params );
                     if(Callback) Callback( result, postRenderCallback );
-                }),
-                TmplList = {
-                    'Debug': (function(result){}),
-                    'CardTable': (function(result){}),
-                    'Card': (function(result){
-                        result.bind('click',function(){ PowerCards.maximize(this) })
-                        PowerCards.prepare(result);
-                    })
-                }
+                })
             return {
                 load: Load,
                 render: RenderTemplate
@@ -383,7 +385,7 @@ $(function(){
                     var _power = PCSHEET.Powers[i];
                     PowerCards.add_to_table(_power);
                 }
-                PowerCards.stack();
+//                PowerCards.stack();
             })
         },
         LayoutReadyCallback = (function(){

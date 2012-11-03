@@ -14,13 +14,16 @@ body{ margin:0;padding:0;font-family:Helvetica }
     height:100%;
 }
 
-.card-table-col{ width:18%; margin:1%; float:left; position:relative }
+#card-table{ width:25%; height:100%; overflow-y:scroll; float:right; background:rgba(255,255,255,.4); box-shadow:0px 0px 15px #333 }
+.card-table-col{  }
 
 /** Small Cards **/
 .card{
-    position:absolute;
-    top:10px;
-    left:0px;
+    /*position:absolute;*/
+    /*top:10px;*/
+    /*left:0px;*/
+    position:relative;
+    margin:15px auto;
     box-shadow:0px 0px 10px #000;
     z-index:2;
     display:block;
@@ -40,6 +43,7 @@ body{ margin:0;padding:0;font-family:Helvetica }
 .card.daily{border:2em solid #808171; border-width:1.2em .5em 1em}
 .card.utility{border:2em solid #23233D; border-width:1.2em .5em 1em}
 .card .edit-control{ display:block; width:15px; height:15px; top:5px; right:5px; position:absolute; }
+.card .edit-control a img{border:0}
 .card h1{
     text-shadow:1px 1px 0px #333;
     font-size:14px;

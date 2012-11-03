@@ -5,7 +5,7 @@
         var script_el = d.createElement('script');
 
         script_el.setAttribute('type','text/javascript')
-        script_el.setAttribute('src','js/' + path)
+        script_el.setAttribute('src','js/' + path + '?q=' + Date())
 
         script_list.push( script_el )
     }),
