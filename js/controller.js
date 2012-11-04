@@ -161,6 +161,9 @@ $(function(){
                     })
                 }),
                 TmplList = {
+                    'Desktop' : (function(result, Object, Params){
+                        result.css({'height':window.innerHeight})
+                    }),
                     'Debug': (function(result, Object, Params){}),
                     'CardTable': (function(result, Object, Params){
                         result.css({'height':window.innerHeight})
@@ -361,11 +364,14 @@ $(function(){
                 init = (function(callback){
                             prepareBackground()
                             body.append('<div id="wrapper"></div>');
+                            Templates.render('Desktop', {}, function(result){
+                                $('#wrapper').append(result)
+                            })
                             Templates.render('CardTable', {}, function(result){
                                 $('#wrapper').append(result)
-                                callback();
                             })
                             Debug.init()
+                            callback();
                         }),
                 prepareBackground = (function(){
                     body.append('<div id="background"><img src="assets/images/7820parchment.jpg" class="stretch" alt="" /></div>')
