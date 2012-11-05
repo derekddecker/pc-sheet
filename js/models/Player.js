@@ -3,7 +3,7 @@ var Player = DataObject.extend({
     init : (function(hash){
         this._super( hash );
         this.ClassName = 'Player';
-        this.OnChange();
+        this.changed();
     }),
 
     defaults : {
@@ -15,9 +15,17 @@ var Player = DataObject.extend({
 
         "Conditions" : [],
 
+        "ParagonPath" : '',
+
+        "EpicDestiny" : '',
+
+        "Deity" : '',
+
         "HP" : 0,
 
-        "Class" : 'Warlock',
+        "MaxHP" : 0,
+
+        "Class" : new Class('Warlord'),
 
         "Race" : 'Dragonborn',
 
@@ -42,39 +50,39 @@ var Player = DataObject.extend({
         "Initiative" : 0,
 
         "Defenses" : [
-            {"Name":'AC'},
-            {"Name":'FORT'},
-            {"Name":'REF'},
-            {"Name":'WILL'}
+            new Defense({"Name":'AC'}),
+            new Defense({"Name":'FORT'}),
+            new Defense({"Name":'REF'}),
+            new Defense({"Name":'WILL'})
         ],
 
         "Skills" : [
-            {"SkillName":'Acrobatics'},
-            {"SkillName":'Arcana'},
-            {"SkillName":'Athletics'},
-            {"SkillName":'Bluff'},
-            {"SkillName":'Diplomacy'},
-            {"SkillName":'Dungeoneering'},
-            {"SkillName":'Endurance'},
-            {"SkillName":'Heal'},
-            {"SkillName":'History'},
-            {"SkillName":'Insight'},
-            {"SkillName":'Intimidate'},
-            {"SkillName":'Nature'},
-            {"SkillName":'Perception'},
-            {"SkillName":'Religion'},
-            {"SkillName":'Stealth'},
-            {"SkillName":'Streetwise'},
-            {"SkillName":'Thievery'}
+            new Skill({"SkillName":'Acrobatics'}),
+            new Skill({"SkillName":'Arcana'}),
+            new Skill({"SkillName":'Athletics'}),
+            new Skill({"SkillName":'Bluff'}),
+            new Skill({"SkillName":'Diplomacy'}),
+            new Skill({"SkillName":'Dungeoneering'}),
+            new Skill({"SkillName":'Endurance'}),
+            new Skill({"SkillName":'Heal'}),
+            new Skill({"SkillName":'History'}),
+            new Skill({"SkillName":'Insight'}),
+            new Skill({"SkillName":'Intimidate'}),
+            new Skill({"SkillName":'Nature'}),
+            new Skill({"SkillName":'Perception'}),
+            new Skill({"SkillName":'Religion'}),
+            new Skill({"SkillName":'Stealth'}),
+            new Skill({"SkillName":'Streetwise'}),
+            new Skill({"SkillName":'Thievery'})
         ],
 
         "AbilityScores" : [
-            {"Ability":"Strength"},
-            {"Ability":"Constitution"},
-            {"Ability":"Dexterity"},
-            {"Ability":"Intelligence"},
-            {"Ability":"Wisdom"},
-            {"Ability":"Charisma"}
+            new AbilityScore({"Ability":"Strength"}),
+            new AbilityScore({"Ability":"Constitution"}),
+            new AbilityScore({"Ability":"Dexterity"}),
+            new AbilityScore({"Ability":"Intelligence"}),
+            new AbilityScore({"Ability":"Wisdom"}),
+            new AbilityScore({"Ability":"Charisma"})
         ],
 
         "PassivePerception" : 0,
@@ -92,7 +100,7 @@ var Player = DataObject.extend({
     }),
 
     "CalculateAbilityScore" : (function(){
-       // Util.trace('Recalculating ability scores.',this);
+       Util.trace('Recalculating ability scores.',this);
         for(var ability in this.AbilityScores){
             this.AbilityScores[ability].ModifierPlusHalfLevel = parseInt(this.AbilityScores[ability].Modifier)+parseInt(this.getHalfLevel());
             this.AbilityScores[ability].CalculateScore();
@@ -116,7 +124,7 @@ var Player = DataObject.extend({
         return true;
     }),
 
-    "OnChange" : (function(){
+    "changed" : (function(){
         this.Level = PlayerUtil.CalculateLevel(this.Experience);
         this.CalculateAbilityScore();
         this.CalculateSkills();
@@ -161,57 +169,57 @@ var Player = DataObject.extend({
         }
     }),
 
-    "addDefense" : (function(obj){
-        var o = (obj instanceof window.Defense) ?
-            obj : (typeof obj === 'object') ? new window.Defense(obj) : false;
+//    "addDefense" : (function(obj){
+//        var o = (obj instanceof window.Defense) ?
+//            obj : (typeof obj === 'object') ? new window.Defense(obj) : false;
+//
+//        if(o) this.addNestedObject(o, 'Defenses', 'Name');
+//        return this;
+//    }),
+//
+//    "setDefenses" : (function(array){
+//        for(var i in array){
+//            this.addDefense( array[i] );
+//        }
+//    }),
 
-        if(o) this.addNestedObject(o, 'Defenses', 'Name');
-        return this;
-    }),
+//    "addAbilityScore" : (function(obj){
+//        var o = (obj instanceof window.AbilityScore) ?
+//            obj : (obj.hasOwnProperty('Ability')) ? new window.AbilityScore(obj) : false;
+//
+//        if(o)this.addNestedObject(o, 'AbilityScores', 'Ability');
+//        return this;
+//    }),
+//
+//    "setAbilityScores" : (function(array){
+//        for(var i in array){
+//            this.addAbilityScore( array[i] );
+//        }
+//    }),
 
-    "setDefenses" : (function(array){
-        for(var i in array){
-            this.addDefense( array[i] );
-        }
-    }),
-
-    "addAbilityScore" : (function(obj){
-        var o = (obj instanceof window.AbilityScore) ?
-            obj : (obj.hasOwnProperty('Ability')) ? new window.AbilityScore(obj) : false;
-
-        if(o)this.addNestedObject(o, 'AbilityScores', 'Ability');
-        return this;
-    }),
-
-    "setAbilityScores" : (function(array){
-        for(var i in array){
-            this.addAbilityScore( array[i] );
-        }
-    }),
-
-    "setSkills" : (function(array){
-        for(var i in array){
-            this.addSkill( array[i] );
-        }
-    }),
-
-    "addSkill" : (function(obj){
-        var o = (obj instanceof window.Skill) ?
-            obj : (typeof obj === 'object') ? new window.Skill(obj) : false;
-       // Util.trace(obj)
-        if(o) this.addNestedObject(o, 'Skills', 'SkillName');
-        return this;
-    }),
-
-    "setClass":(function(classs){
-        if($.inArray(classs, PlayerUtil.ValidClasses) !== -1) this.Class = classs;
-        else Util.trace('Invalid Class '+classs)
-    }),
-
-    "setRace": (function(race){
-        if($.inArray(race, PlayerUtil.ValidRaces) !== -1) this.Race = race;
-        else Util.trace('Invalid Race '+race)
-    }),
+//    "setSkills" : (function(array){
+//        for(var i in array){
+//            this.addSkill( array[i] );
+//        }
+//    }),
+//
+//    "addSkill" : (function(obj){
+//        var o = (obj instanceof window.Skill) ?
+//            obj : (typeof obj === 'object') ? new window.Skill(obj) : false;
+//       // Util.trace(obj)
+//        if(o) this.addNestedObject(o, 'Skills', 'SkillName');
+//        return this;
+//    }),
+//
+//    "setClass":(function(classs){
+//        if($.inArray(classs, PlayerUtil.ValidClasses) !== -1) this.Class = classs;
+//        else Util.trace('Invalid Class '+classs)
+//    }),
+//
+//    "setRace": (function(race){
+//        if($.inArray(race, PlayerUtil.ValidRaces) !== -1) this.Race = race;
+//        else Util.trace('Invalid Race '+race)
+//    }),
 
     "getHalfLevel" : (function(){ return Math.floor(this.Level/2); }),
 

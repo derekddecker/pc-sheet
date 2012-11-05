@@ -1,7 +1,5 @@
 var PlayerUtil = {
 
-    "ValidClasses" : ['Cleric','Fighter','Paladin','Ranger','Rogue','Warlock','Warlord','Wizard','Warden'],
-
     "ValidRaces" : ['Dragonborn','Dwarf','Eladrin','Elf','Half-Elf','Halfling','Human','Tiefling','Wilden','Goliath','Warforged'],
 
     "ExperienceToLevelMap" : {

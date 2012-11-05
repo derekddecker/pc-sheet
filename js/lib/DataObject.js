@@ -59,6 +59,17 @@ var DataObject =  Class.extend({
                     this[i].push( nested_object )
                 }
             }
+            /**
+             * Try to guess class of a property if it's a direct object relationship.
+             *
+             * Example: A CharacterSheet instance with a property named 'Player' will try to
+             * instantiate a 'Player' object, passing it the object literal, if a 'Player' class type
+             * exists.
+             */
+            else if(typeof window[i] !== 'undefined' && (new window[i]) instanceof DataObject === true){
+                var nested_object = new window[i](hash[i])
+                this[i] = nested_object
+            }
             //declare all the instance variables
             else if(typeof this['set'+i] !== 'undefined'){
                 this['set'+i](hash[i]);

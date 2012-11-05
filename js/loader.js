@@ -44,13 +44,14 @@
     load_models = (function(){
         var model = [
             'models/constants/PowerTypes.js',
+            'models/constants/Classes.js',
             'models/AbilityScore.js',
-            'models/CharacterSheet.js',
-            'models/Condition.js',
             'models/Defense.js',
-            'models/Player.js',
-            'models/Power.js',
             'models/Skill.js',
+            'models/Condition.js',
+            'models/Player.js',
+            'models/CharacterSheet.js',
+            'models/Power.js'
         ]
         for(var i in model) add_js_to_load( model[i] )
     }),

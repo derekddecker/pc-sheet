@@ -164,6 +164,9 @@ $(function(){
                     'Desktop' : (function(result, Object, Params){
                         result.css({'height':window.innerHeight})
                     }),
+                    'BackgroundInfo' : (function(result, Object, Params){
+                        result.css({'height':window.innerHeight,'top':'-'+window.innerHeight+'px'}).animate({'top':0})
+                    }),
                     'Debug': (function(result, Object, Params){}),
                     'CardTable': (function(result, Object, Params){
                         result.css({'height':window.innerHeight})
@@ -258,7 +261,7 @@ $(function(){
                     $(el).replaceWith( uneditable_element );
 
                     //post update callback
-                    if(typeof update_callbacks[el_props.editable_object.ClassName][el_props.object_property_name] === 'function')
+                    if(typeof update_callbacks[el_props.editable_object.ClassName] !== 'undefined' && typeof update_callbacks[el_props.editable_object.ClassName][el_props.object_property_name] === 'function')
                         update_callbacks[el_props.editable_object.ClassName][el_props.object_property_name](uneditable_element)
                 }),
                 edit_button = '<div class="edit-control"><a href="javascript:;"><img src="assets/images/edit_icon.gif" /></a></div>',
@@ -317,7 +320,7 @@ $(function(){
                             objects_to_trigger_change_on[i].changed();
                     }
                     for(var i in all_objects_checked){
-                        if(typeof update_callbacks[all_objects_checked[i].ClassName]['all'] === 'function'){
+                        if(typeof update_callbacks[all_objects_checked[i].ClassName] !== 'undefined' && typeof update_callbacks[all_objects_checked[i].ClassName]['all'] === 'function'){
                             update_callbacks[all_objects_checked[i].ClassName]['all']($(this))
                         }
                     }
@@ -361,11 +364,33 @@ $(function(){
         })(),
         Layout = (function(){
             var body = $('body'),
+                bind_icon_event_handlers = (function(){
+                    var icons = $('.icon');
+                    icons.bind('click',function(){
+                        var _icon = $(this),
+                            tmpl_to_render = $(this).attr('rel');
+
+                        if(_icon.hasClass('active')){
+                            $('#icon-navigation').next().animate({'top':'-'+window.innerHeight+'px'},function(){
+                                $(this).remove();
+                                icons.removeClass('active');
+                            })
+                        }else{
+                            icons.removeClass('active');
+                            _icon.addClass('active');
+
+                            Templates.render(tmpl_to_render, PCSHEET.Player, function(result){
+                                $('#icon-navigation').after(result)
+                            })
+                        }
+                    })
+                }),
                 init = (function(callback){
                             prepareBackground()
                             body.append('<div id="wrapper"></div>');
-                            Templates.render('Desktop', {}, function(result){
-                                $('#wrapper').append(result)
+                            Templates.render('Desktop', PCSHEET.Player, function(result){
+                                $('#wrapper').append(result);
+                                bind_icon_event_handlers()
                             })
                             Templates.render('CardTable', {}, function(result){
                                 $('#wrapper').append(result)
@@ -387,6 +412,7 @@ $(function(){
         })(),
         Fixtures = {
             "init" : (function(){
+                Util.trace(PCSHEET)
                 for(var i in PCSHEET.Powers){
                     var _power = PCSHEET.Powers[i];
                     PowerCards.add_to_table(_power);
@@ -402,4 +428,5 @@ $(function(){
         })
 
     Templates.load(OnReady)
+    $(window).bind('resize', function(){ Layout.clear_and_init(LayoutReadyCallback) })
 })

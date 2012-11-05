@@ -91,16 +91,30 @@ body{ margin:0;padding:0;font-family:Helvetica }
 .fullscreen.card .card-type-subtext{ font-size:16px }
 
 /** Desktop **/
-#desktop{ width:10%; height:100%; background:rgba(0,0,0,.1); float:left }
-    .icon{ float:left; position:relative; border-bottom:1px solid #333; border-right:1px solid #333; text-align:center; margin:0; height:25%; width:100%; background:rgba(255,255,255,.4); }
-        .icon .label{ position:absolute; bottom:10px; text-align:center; text-shadow:1px 1px 0px #fff; width:100% }
-        .icon:last-child{border-bottom:0}
-    .icon.background{ background:url(../images/background-info.png) rgba(255,255,255,.4) center center no-repeat; background-size:55%; }
-    .icon.equipment{background:url(../images/equipment-icon.png) rgba(255,255,255,.4) center center no-repeat; background-size:55%;}
-    .icon.combat{background:url(../images/combat-icon.png) rgba(255,255,255,.4) center center no-repeat; background-size:55%;}
-    .icon.specs{background:url(../images/specs-icon.png) rgba(255,255,255,.4) center center no-repeat; background-size:55%;}
+#desktop{ float:left; width:75% }
+    #icon-navigation{ width:15%; height:100%; float:left }
+        .icon{ float:left; position:relative; border-bottom:1px solid #333; border-right:1px solid #333; text-align:center; margin:0; height:25%; width:100%; background-color:rgba(255,255,255,.4); }
+            .icon .label{ position:absolute; bottom:10px; text-align:center; text-shadow:1px 1px 0px #fff; width:100% }
+            .icon:last-child{border-bottom:0}
+            .icon:hover{ background:rgba(255,255,255,.6); cursor:pointer }
+            .icon.active{ background:rgba(255,255,255,.8); border-right:0; }
+        .icon.background{ background-image:url(../images/background-info.png); background-position:center center; background-repeat:no-repeat; background-size:55%; }
+        .icon.equipment{background-image:url(../images/equipment-icon.png); background-position:center center; background-repeat:no-repeat; background-size:55%;}
+        .icon.combat{background-image:url(../images/combat-icon.png); background-position:center center; background-repeat:no-repeat; background-size:55%;}
+        .icon.specs{background-image:url(../images/specs-icon.png); background-position:center center; background-repeat:no-repeat; background-size:55%;}
     #campaign-notes{}
     #quick-access{}
+    #basic-info{ width:81%; margin:2%; float:left  }
+        #basic-info h1{ color:#333; position:relative; top:-.2em; text-shadow:1px 1px 0px #efefef; display:block; overflow:hidden; font-family:'Shadows Into Light Two', cursive; height:70pt; font-size:50pt; line-height:70pt; margin:0; padding:0; }
+
+/** Info Screens **/
+.info-screen{ width:81%; padding:2%; float:left; position:relative;background:rgba(255,255,255,.8); }
+    .info-screen h1{ color:#333; position:relative; top:-.2em; text-shadow:1px 1px 0px #efefef; display:block; overflow:hidden; font-family:'Shadows Into Light Two', cursive; height:50pt; font-size:30pt; line-height:50pt; margin:0; padding:0; }
+    .info-screen label{ float:left; display:block; padding:3px; }
+    .info-screen label:after{ content:":" }
+    .info-screen form div{ height:26px }
+    .info-screen form div div{ padding:3px }
+#background-info{}
 
 /** Debug **/
 #debug{ position:fixed; right:0; top:10px; width:100px; z-index:999; background:#fff; border-radius:5px 0 0 5px; border:1px solid #000; box-shadow:0px 0px 15px #333; }

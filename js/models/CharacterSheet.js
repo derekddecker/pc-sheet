@@ -5,7 +5,8 @@ var CharacterSheet = DataObject.extend({
         this.ClassName = 'CharacterSheet';
     }),
     defaults: {
-        "Powers" : []
+        "Powers" : [],
+        "Player" : new Player()
     },
     changed: (function(){
         Util.trace(this)
