@@ -213,7 +213,7 @@ $(function(){
                         "input_element" : '',
                         "input_type" : original_element.data('input-type') || original_element[0].tagName,
                         "object_property_name" : object_property_name || original_element.attr('name'),
-                        "object_property_value" : original_element.val() || editable_object[object_property_name]
+                        "object_property_value" : original_element.val() || editable_object[object_property_name].val || editable_object[object_property_name]
                     }
                 }),
                 make_element_editable = (function(el){
@@ -227,6 +227,7 @@ $(function(){
                         case 'select':
                             var input_element = '<select name="' + el_props.object_property_name + '">',
                                 options = window[el_props.select_options_constant].each();
+
                             for(var i in options)
                             {
                                 var option = options[i],
@@ -282,7 +283,10 @@ $(function(){
                         {
                             if(original_object[el_props.object_property_name] !== el_props.object_property_value)
                             {
-                                original_object[el_props.object_property_name] = el_props.object_property_value;
+                                if(typeof original_object[el_props.object_property_name] === 'object')
+                                    original_object[el_props.object_property_name] = new window[original_object[el_props.object_property_name].ClassName](el_props.object_property_value);
+                                else
+                                    original_object[el_props.object_property_name] = el_props.object_property_value;
                                 property_changed = true;
                             }
                         }

@@ -25,7 +25,7 @@ var Player = DataObject.extend({
 
         "MaxHP" : 0,
 
-        "Class" : new Class('Warlord'),
+        "Class" : new CharacterClass('Warlord'),
 
         "Race" : 'Dragonborn',
 

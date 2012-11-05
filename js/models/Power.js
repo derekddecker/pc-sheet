@@ -6,7 +6,7 @@ var Power = DataObject.extend({
     defaults:{
         "Name" : 'Power',
         "Description" : '',
-        "Type" : PowerTypes['At-Will']
+        "Type" : new PowerType('At-Will')
     },
     changed: (function(){
         Util.trace(this, ' CHANGED!')

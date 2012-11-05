@@ -37,7 +37,9 @@
         var lib = [
             'lib/JSON.js',
             'lib/Class.js',
-            'lib/DataObject.js'
+            'lib/DataObject.js',
+            'lib/Constant.js',
+            'lib/ConstantInstance.js'
         ]
         for(var i in lib) add_js_to_load( lib[i] )
     }),
