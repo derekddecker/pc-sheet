@@ -7,9 +7,8 @@ var PowerTypes = new Constant({
 
     PowerType = ConstantInstance.extend({
         "init" : (function(int){
-            this._super(int, {
-                "ClassName" : 'PowerType',
-                "Constant" : 'PowerTypes'
-            })
+            this.ClassName = 'PowerType'
+            this.Constant = 'PowerTypes'
+            this._super(int)
         })
     })

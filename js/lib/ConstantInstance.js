@@ -1,16 +1,19 @@
 var ConstantInstance =  DataObject.extend({
-    init : (function(int, options){
-        this.ClassName = options.ClassName
-        if(!isNaN(parseInt(int))){
-            this.val = parseInt(int)
-            this.text = Classes[parseInt(int)]
-        }else{
-            this.val = Classes[int]
-            this.text = int
+    init : (function(hash){
+        if(typeof hash !== 'undefined')
+        {
+            var int = (typeof hash === 'object') ? hash.val : hash
+            if(!isNaN(parseInt(int))){
+                this.val = parseInt(int)
+                this.text = Classes[parseInt(int)]
+            }else{
+                Util.trace('blah!',hash, int)
+                this.val = Classes[int]
+                this.text = int
+            }
+            this.toString = (function(){return this.text})
+            this.each = (function(){ return window[this.Constant].each() })
+            this._super(int)
         }
-    }),
-    "toString" : (function(){
-        return this.text;
-    }),
-    "each" : (function(){ return window[this.Constant].each() })
+    })
 })

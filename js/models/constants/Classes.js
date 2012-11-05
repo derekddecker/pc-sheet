@@ -12,9 +12,8 @@ var Classes = new Constant({
 
     CharacterClass = ConstantInstance.extend({
         "init" : (function(int){
-            this._super(int, {
-                "ClassName" : 'CharacterClass',
-                "Constant" : 'Classes'
-            })
+            this.ClassName = 'CharacterClass'
+            this.Constant = 'Classes'
+            this._super(int)
         })
     })
