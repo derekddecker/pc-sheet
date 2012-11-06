@@ -1,5 +1,6 @@
 html{height:100%;width:100%;overflow:hidden}
 body{ margin:0;padding:0;font-family:Helvetica }
+.clear{clear:both}
 #wrapper{height:100%;width:100%;margin:0;padding:0;position:relative;z-index:1}
 #background {
     width: 100%;
@@ -110,10 +111,10 @@ body{ margin:0;padding:0;font-family:Helvetica }
 /** Info Screens **/
 .info-screen{ width:81%; padding:2%; float:left; position:relative;background:rgba(255,255,255,.8); }
     .info-screen h1{ color:#333; position:relative; top:-.2em; text-shadow:1px 1px 0px #efefef; display:block; overflow:hidden; font-family:'Shadows Into Light Two', cursive; height:50pt; font-size:30pt; line-height:50pt; margin:0; padding:0; }
-    .info-screen label{ float:left; display:block; padding:3px; }
+    .info-screen label{ float:left; display:block; padding:1px; }
     .info-screen label:after{ content:":" }
-    .info-screen form div{ height:26px }
-    .info-screen form div div{ padding:3px }
+    .info-screen form div{  }
+    .info-screen form div div{ padding:1px }
 #background-info{}
 
 /** Debug **/

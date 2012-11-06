@@ -88,7 +88,13 @@ var Player = DataObject.extend({
 
         "PassivePerception" : 0,
 
-        "PassiveInsight" : 0
+        "PassiveInsight" : 0,
+
+        "Gold" : '',
+
+        "MagicItems" : '', //string for now
+
+         "OtherEquipment" : '' //string for now
     },
 
     "CalculateInitiative" : (function(){

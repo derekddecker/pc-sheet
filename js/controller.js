@@ -167,6 +167,9 @@ $(function(){
                     'BackgroundInfo' : (function(result, Object, Params){
                         result.css({'height':window.innerHeight,'top':'-'+window.innerHeight+'px'}).animate({'top':0})
                     }),
+                    'EquipmentInfo' : (function(result, Object, Params){
+                        result.css({'height':window.innerHeight,'top':'-'+window.innerHeight+'px'}).animate({'top':0})
+                    }),
                     'Debug': (function(result, Object, Params){}),
                     'CardTable': (function(result, Object, Params){
                         result.css({'height':window.innerHeight})
@@ -393,20 +396,30 @@ $(function(){
                     var icons = $('.icon');
                     icons.bind('click',function(){
                         var _icon = $(this),
-                            tmpl_to_render = $(this).attr('rel');
-
-                        if(_icon.hasClass('active')){
-                            $('#icon-navigation').next().animate({'top':'-'+window.innerHeight+'px'},function(){
-                                $(this).remove();
+                            tmpl_to_render = $(this).attr('rel'),
+                            rollup_current = (function(callback){
+                                return $('#icon-navigation').next().animate({'top':'-'+window.innerHeight+'px'},function(){
+                                    $(this).remove();
+                                    icons.removeClass('active');
+                                    if(callback) callback()
+                                })
+                            }),
+                            rolldown_selected = (function(){
                                 icons.removeClass('active');
-                            })
-                        }else{
-                            icons.removeClass('active');
-                            _icon.addClass('active');
+                                _icon.addClass('active');
 
-                            Templates.render(tmpl_to_render, PCSHEET.Player, function(result){
-                                $('#icon-navigation').after(result)
-                            })
+                                Templates.render(tmpl_to_render, PCSHEET.Player, function(result){
+                                    $('#icon-navigation').after(result)
+                                })
+                            });
+
+                        if($('.icon.active').length > 0){
+                            if(_icon.hasClass('active'))
+                                rollup_current()
+                            else
+                                rollup_current(rolldown_selected)
+                        }else{
+                            rolldown_selected()
                         }
                     })
                 }),
