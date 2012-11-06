@@ -187,6 +187,12 @@ $(function(){
                     //bind the object to the top level element of the result
                     result.find('form.editable').find('.editable-field').data('obj', Object);
 
+                    //find each element with a data-property attribute and bind the object property to that element
+                    result.find('[data-property]').each(function(){
+                        var $_el = $(this);
+                        $_el.data('instance-property', Object[$_el.data('property')]).data('obj', Object)
+                    })
+
                     //make editable props editable
                     DataBinding.make_editable(result)
 
@@ -319,6 +325,7 @@ $(function(){
                         restore_uneditable_state(this)
 
                     })
+
                     for(var i in objects_to_trigger_change_on){
                         if(typeof objects_to_trigger_change_on[i].changed === 'function')
                             objects_to_trigger_change_on[i].changed();
@@ -329,10 +336,24 @@ $(function(){
                         }
                     }
 
+                    update_observing_properties()
                     parent_form.find('button.update').remove();
                     make_editable(parent_form)
                     parent_form.find('.edit-control').show()
 
+                }),
+                update_observing_properties = (function(){
+                    $('[data-property]').each(function(){
+                        var $_el = $(this),
+                            original_prop_val = $_el.data('instance-property'),
+                            current_prop_val = $_el.data('obj')[$_el.data('property')];
+
+//                        Util.trace(original_prop_val, current_prop_val)
+
+                        if(original_prop_val && original_prop_val !== current_prop_val){
+                            $_el.text(current_prop_val.toString()).data('instance-property', current_prop_val)
+                        }
+                    })
                 }),
                 update_button = $('<button class="update">Update</button>').bind('click', properties_updated),
                 edit_button_clicked = (function(event){
@@ -416,7 +437,6 @@ $(function(){
         })(),
         Fixtures = {
             "init" : (function(){
-                Util.trace(PCSHEET)
                 for(var i in PCSHEET.Powers){
                     var _power = PCSHEET.Powers[i];
                     PowerCards.add_to_table(_power);
@@ -425,7 +445,7 @@ $(function(){
             })
         },
         LayoutReadyCallback = (function(){
-            Fixtures.init()
+           Fixtures.init()
         }),
         OnReady = (function(){
             Layout.init(LayoutReadyCallback)

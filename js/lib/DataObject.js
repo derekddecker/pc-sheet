@@ -1,36 +1,8 @@
 var DataObject =  Class.extend({
     init : (function(hash){
 
-        var defaults = $.extend({}, this.defaults);
-
-        for(var i in defaults)
-        {
-            if(defaults[i] instanceof DataObject && !$.isArray( defaults[i] )) defaults[i] = $.extend({},defaults[i]); //make sure we get a unique instance.
-            if(typeof this[i] == 'undefined')
-            {
-                switch(typeof defaults[i])
-                {
-                    case 'object':{
-                        if($.isArray(defaults[i]))
-                        {
-                            this[i] = [];
-                            if(typeof this['set'+i] !== 'undefined'){
-                                this['set'+i](defaults[i]);
-                            }else{
-                                //Util.trace('Setting', i, defaults[i])
-                                this[i] = defaults[i];
-                            }
-                        }
-                        else this[i] = defaults[i];
-                        break;
-                    }
-                    default:{
-                        this[i] = defaults[i];
-                        break;
-                    }
-                }
-            }
-        }
+        var defaults = $.extend({}, this.defaults),
+            hash = $.extend(defaults, hash);
 
         for(var i in hash)
         {

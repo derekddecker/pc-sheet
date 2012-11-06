@@ -1,8 +1,9 @@
 var Player = DataObject.extend({
 
     init : (function(hash){
-        this._super( hash );
         this.ClassName = 'Player';
+        Util.trace('here',this)
+        this._super( hash );
         this.changed();
     }),
 
@@ -25,7 +26,7 @@ var Player = DataObject.extend({
 
         "MaxHP" : 0,
 
-        "CharacterClass" : new CharacterClass('Warlord'),
+        "CharacterClass" : 'Warlord',
 
         "Race" : 'Dragonborn',
 
@@ -50,39 +51,39 @@ var Player = DataObject.extend({
         "Initiative" : 0,
 
         "Defenses" : [
-            new Defense({"Name":'AC'}),
-            new Defense({"Name":'FORT'}),
-            new Defense({"Name":'REF'}),
-            new Defense({"Name":'WILL'})
+            {"Name":'AC'},
+            {"Name":'FORT'},
+            {"Name":'REF'},
+            {"Name":'WILL'}
         ],
 
         "Skills" : [
-            new Skill({"SkillName":'Acrobatics'}),
-            new Skill({"SkillName":'Arcana'}),
-            new Skill({"SkillName":'Athletics'}),
-            new Skill({"SkillName":'Bluff'}),
-            new Skill({"SkillName":'Diplomacy'}),
-            new Skill({"SkillName":'Dungeoneering'}),
-            new Skill({"SkillName":'Endurance'}),
-            new Skill({"SkillName":'Heal'}),
-            new Skill({"SkillName":'History'}),
-            new Skill({"SkillName":'Insight'}),
-            new Skill({"SkillName":'Intimidate'}),
-            new Skill({"SkillName":'Nature'}),
-            new Skill({"SkillName":'Perception'}),
-            new Skill({"SkillName":'Religion'}),
-            new Skill({"SkillName":'Stealth'}),
-            new Skill({"SkillName":'Streetwise'}),
-            new Skill({"SkillName":'Thievery'})
+            {"SkillName":'Acrobatics'},
+            {"SkillName":'Arcana'},
+            {"SkillName":'Athletics'},
+            {"SkillName":'Bluff'},
+            {"SkillName":'Diplomacy'},
+            {"SkillName":'Dungeoneering'},
+            {"SkillName":'Endurance'},
+            {"SkillName":'Heal'},
+            {"SkillName":'History'},
+            {"SkillName":'Insight'},
+            {"SkillName":'Intimidate'},
+            {"SkillName":'Nature'},
+            {"SkillName":'Perception'},
+            {"SkillName":'Religion'},
+            {"SkillName":'Stealth'},
+            {"SkillName":'Streetwise'},
+            {"SkillName":'Thievery'}
         ],
 
         "AbilityScores" : [
-            new AbilityScore({"Ability":"Strength"}),
-            new AbilityScore({"Ability":"Constitution"}),
-            new AbilityScore({"Ability":"Dexterity"}),
-            new AbilityScore({"Ability":"Intelligence"}),
-            new AbilityScore({"Ability":"Wisdom"}),
-            new AbilityScore({"Ability":"Charisma"})
+            {"Ability":"Strength"},
+            {"Ability":"Constitution"},
+            {"Ability":"Dexterity"},
+            {"Ability":"Intelligence"},
+            {"Ability":"Wisdom"},
+            {"Ability":"Charisma"}
         ],
 
         "PassivePerception" : 0,
@@ -100,7 +101,6 @@ var Player = DataObject.extend({
     }),
 
     "CalculateAbilityScore" : (function(){
-       Util.trace('Recalculating ability scores.',this);
         for(var ability in this.AbilityScores){
             this.AbilityScores[ability].ModifierPlusHalfLevel = parseInt(this.AbilityScores[ability].Modifier)+parseInt(this.getHalfLevel());
             this.AbilityScores[ability].CalculateScore();

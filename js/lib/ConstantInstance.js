@@ -7,7 +7,6 @@ var ConstantInstance =  DataObject.extend({
                 this.val = parseInt(int)
                 this.text = Classes[parseInt(int)]
             }else{
-                Util.trace('blah!',hash, int)
                 this.val = Classes[int]
                 this.text = int
             }
