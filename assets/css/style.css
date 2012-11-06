@@ -98,18 +98,30 @@ body{ margin:0;padding:0;font-family:Helvetica }
             .icon .label{ position:absolute; bottom:10px; text-align:center; text-shadow:1px 1px 0px #fff; width:100% }
             .icon:last-child{border-bottom:0}
             .icon:hover{ background:rgba(255,255,255,.6); cursor:pointer }
-            .icon.active{ background:rgba(255,255,255,.8); border-right:0; }
+            .icon.active{ background:rgba(255,255,255,.8); }
         .icon.background{ background-image:url(../images/background-info.png); background-position:center center; background-repeat:no-repeat; background-size:55%; }
-        .icon.equipment{background-image:url(../images/equipment-icon.png); background-position:center center; background-repeat:no-repeat; background-size:55%;}
-        .icon.combat{background-image:url(../images/combat-icon.png); background-position:center center; background-repeat:no-repeat; background-size:55%;}
-        .icon.specs{background-image:url(../images/specs-icon.png); background-position:center center; background-repeat:no-repeat; background-size:55%;}
+        .icon.equipment{background-color:rgba(255,234,0,.4); background-image:url(../images/equipment-icon.png); background-position:center center; background-repeat:no-repeat; background-size:55%;}
+            .icon.equipment:hover{ background-color:rgba(255,255,0,.6) }
+            .icon.equipment.active{ background-color:rgba(255,255,0,.8) }
+            .icon.equipment .label{ color:blue; text-shadow:1px 1px 0px #fff }
+        .icon.combat{background-color:rgba(255,0,0,.4); background-image:url(../images/combat-icon.png); background-position:center center; background-repeat:no-repeat; background-size:55%;}
+            .icon.combat:hover{ background-color:rgba(255,0,0,.6) }
+            .icon.combat.active{ background-color:rgba(255,0,0,.8) }
+            .icon.combat .label{ color:yellow; text-shadow:1px 1px 0px #000 }
+        .icon.specs{background-color:rgba(0,0,255,.4); background-image:url(../images/specs-icon.png); background-position:center center; background-repeat:no-repeat; background-size:55%;}
+            .icon.specs:hover{ background-color:rgba(0,0,255,.6) }
+            .icon.specs.active{ background-color:rgba(0,0,255,.8) }
+            .icon.specs .label{ color:#fff; text-shadow:1px 1px 0px #000 }
     #campaign-notes{}
     #quick-access{}
     #basic-info{ width:81%; margin:2%; float:left  }
         #basic-info h1{ color:#333; position:relative; top:-.2em; text-shadow:1px 1px 0px #efefef; display:block; overflow:hidden; font-family:'Shadows Into Light Two', cursive; height:70pt; font-size:50pt; line-height:70pt; margin:0; padding:0; }
+        #basic-info .label{float:left; display:block; padding:1px}
+        #basic-info .label:after{ content:":" }
 
 /** Info Screens **/
-.info-screen{ width:81%; padding:2%; float:left; position:relative;background:rgba(255,255,255,.8); }
+.info-screen{ width:85%; padding:0; float:left; position:relative; /** background:url(../images/parchment-bg.png) center center no-repeat; background-size:100% 95%; **/ }
+    .info-screen .padding{ padding:2% 5% }
     .info-screen h1{ color:#333; position:relative; top:-.2em; text-shadow:1px 1px 0px #efefef; display:block; overflow:hidden; font-family:'Shadows Into Light Two', cursive; height:50pt; font-size:30pt; line-height:50pt; margin:0; padding:0; }
     .info-screen label{ float:left; display:block; padding:1px; }
     .info-screen label:after{ content:":" }
@@ -118,4 +130,4 @@ body{ margin:0;padding:0;font-family:Helvetica }
 #background-info{}
 
 /** Debug **/
-#debug{ position:fixed; right:0; top:10px; width:100px; z-index:999; background:#fff; border-radius:5px 0 0 5px; border:1px solid #000; box-shadow:0px 0px 15px #333; }
+#debug{ position:fixed; bottom:0; left:45%; width:300px; z-index:999; background:#fff; border-radius:5px 5px 0 0; border:1px solid #000; box-shadow:0px 0px 15px #333; }

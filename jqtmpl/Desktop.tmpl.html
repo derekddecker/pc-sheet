@@ -15,11 +15,29 @@
     </div>
     <div id="basic-info">
         <h1 data-property="CharacterName">${CharacterName}</h1>
-        <div class="level" data-property="Level">${Level}</div>
-        <div class="experience" data-property="Experience">${Experience}</div>
-        <div class="hp"><span data-property="HP">${HP}</span><span data-property="MaxHP">${MaxHP}</span></div>
-        <div class="class" data-property="CharacterClass">${CharacterClass}</div>
-        <div class="race"  data-property="Race">${Race}</div>
+        <div>
+            <div class="label">Level</div><div class="level" data-property="Level">${Level}</div>
+            <div class="clear"></div>
+        </div>
+        <div>
+            <div class="label">Experience</div><div class="experience" data-property="Experience">${Experience}</div>
+            <div class="clear"></div>
+        </div>
+        <div>
+            <div class="label">Hit Points</div>
+            <div class="hp"><span data-property="HP">${HP}</span><span data-property="MaxHP">${MaxHP}</span></div>
+            <div class="clear"></div>
+        </div>
+        <div>
+            <div class="label">Class</div>
+            <div class="class" data-property="CharacterClass">${CharacterClass}</div>
+            <div class="clear"></div>
+        </div>
+        <div>
+            <div class="label">Race</div>
+            <div class="race"  data-property="Race">${Race}</div>
+            <div class="clear"></div>
+        </div>
     </div>
     <div id="campaign-notes"></div>
     <div id="quick-access"></div>

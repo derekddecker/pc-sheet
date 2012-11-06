@@ -170,6 +170,12 @@ $(function(){
                     'EquipmentInfo' : (function(result, Object, Params){
                         result.css({'height':window.innerHeight,'top':'-'+window.innerHeight+'px'}).animate({'top':0})
                     }),
+                    'CombatInfo' : (function(result, Object, Params){
+                        result.css({'height':window.innerHeight,'top':'-'+window.innerHeight+'px'}).animate({'top':0})
+                    }),
+                    'SpecsInfo' : (function(result, Object, Params){
+                        result.css({'height':window.innerHeight,'top':'-'+window.innerHeight+'px'}).animate({'top':0})
+                    }),
                     'Debug': (function(result, Object, Params){}),
                     'CardTable': (function(result, Object, Params){
                         result.css({'height':window.innerHeight})
